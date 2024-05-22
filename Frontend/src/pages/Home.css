@@ -1,0 +1,31 @@
+.hero-image {
+  background-image: url("./image/home.jpg"); /* Replace 'your-image-url.jpg' with your actual image URL */
+  background-size: cover;
+  background-position: center;
+  height: 400px; /* Adjust the height as needed */
+  position: relative;
+}
+
+.welcome-text {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+  font-size: 3rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.search-card {
+  position: absolute;
+  bottom: 9%; /* Adjust the value to move the search bar slightly upward */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  z-index: 1;
+}
+
+.card{
+  border-radius: 30px;
+}

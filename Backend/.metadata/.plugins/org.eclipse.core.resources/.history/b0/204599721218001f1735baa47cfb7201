@@ -1,0 +1,5 @@
+package com.propertypal.backend.service;
+
+public class BungalowService {
+
+}

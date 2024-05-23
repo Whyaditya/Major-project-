@@ -35,7 +35,7 @@ const Activity = () => {
         <div className="container mt-8">
       <div className="row d-flex justify-content-end">
         <div className="col-12 col-md-6">
-          <div className="text-center mx-auto rounded-md box-border px-6 py-3" style={{ marginTop: '15vh', width: '70%', height: '70%', backgroundColor: '#B5AC49', borderRadius: '30px' }}>
+          <div className="text-center mx-auto rounded-md box-border px-6 py-3" style={{ marginTop: '15vh', width: '70%', height: '70%', backgroundColor: '#AD88C6', borderRadius: '30px' }}>
             <h1 className="mb-5">Show my listed properties</h1>
             <button
               onClick={handleShowListings}

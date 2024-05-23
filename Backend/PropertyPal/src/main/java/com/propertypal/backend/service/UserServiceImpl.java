@@ -1,6 +1,8 @@
 package com.propertypal.backend.service;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.propertypal.backend.model.User;
@@ -71,12 +73,26 @@ public class UserServiceImpl implements UserService {
         if (existingUser == null) {
             throw new RuntimeException("User not found");
         }
-
-       
-        existingUser.setPic(newPicUrl);
-
-        
+        existingUser.setPic(newPicUrl);    
         return userRepository.save(existingUser);
     }
+    
+    
+    @Override
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+    
+    
+    @Override
+    public void deleteUserByEmail(String email) {
+        User user = userRepository.findByEmail(email);
+        if (user != null) {
+            userRepository.delete(user);
+        }
+    }
+    
+    
+    
 }
 

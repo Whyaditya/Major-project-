@@ -51,6 +51,7 @@ const SignIn = () => {
           id="email"
           onChange={handleChange}
         />
+        
         <input
           type="password"
           placeholder="password"
@@ -70,6 +71,12 @@ const SignIn = () => {
         <p>Dont have an account?</p>
         <Link to={"/signup"}>
           <span className="text-blue-700">Sign up</span>
+        </Link>
+      </div>
+      <div className="flex gap-2">
+        <p>Admin Login</p>
+        <Link to={"/admin-login"}>
+          <span className="text-blue-700">Click here</span>
         </Link>
       </div>
       {error && <p className="text-red-500 mt-5">{error}</p>}

@@ -12,15 +12,18 @@ export const Header = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("user");
+    localStorage.removeItem("admin");
     navigate("/login");
   };
 
-  // Check if user is logged in
-  const isLoggedIn = localStorage.getItem("user");
-  const user = JSON.parse(isLoggedIn);
+  // Check if user or admin is logged in
+  const isUserLoggedIn = localStorage.getItem("user");
+  const isAdminLoggedIn = localStorage.getItem("admin");
+  const user = isUserLoggedIn && JSON.parse(isUserLoggedIn);
+  const admin = isAdminLoggedIn && JSON.parse(isAdminLoggedIn);
 
   return (
-    <header className="bg-200 shadow-md" style={{backgroundColor:'#B5AC49'}}>
+    <header className="bg-200 shadow-md" style={{ backgroundColor: '#AD88C6' }}>
       <div className="flex justify-between items-center max-w-6xl mx-auto p-3">
         <Link to="/" className="text-decoration-none">
           <h1 className="font-bold text-sm sm:text-xl flex flex-wrap ">
@@ -30,7 +33,6 @@ export const Header = () => {
         </Link>
 
         {/* Search form */}
-
         <form className="bg-slate-100 p-3 rounded-lg flex items-center ">
           <input
             type="text"
@@ -41,11 +43,6 @@ export const Header = () => {
         </form>
 
         <ul className="flex gap-4">
-          {/* <Link to="/" className="text-decoration-none">
-            <li className="hidden sm:inline text-slate-700 hover:underline cursor-pointer">
-              Home
-            </li>
-          </Link> */}
           <Link to="/" className="text-decoration-none">
             <li className="hidden sm:inline text-slate-700 hover:underline cursor-pointer">
               Buy
@@ -56,19 +53,20 @@ export const Header = () => {
               Rent
             </li>
           </Link>
-          <Link to="/subscription" className="text-decoration-none">
+          {!isAdminLoggedIn ?  ( <Link to="/subscription" className="text-decoration-none">
             <li className="hidden sm:inline text-slate-700 hover:underline cursor-pointer">
               Plans
             </li>
-          </Link>
+          </Link>): ""}
+        
           <Link to="/about" className="text-decoration-none">
             <li className="hidden sm:inline text-slate-700 hover:underline cursor-pointer">
               About
             </li>
           </Link>
 
-          {/* Dropdown menu or login button */}
-          {isLoggedIn ? (
+          {/* Dropdown menu */}
+          {isUserLoggedIn || isAdminLoggedIn ? (
             <div className="dropdown">
               <div>
                 <button
@@ -78,10 +76,14 @@ export const Header = () => {
                   aria-label="User menu"
                   aria-haspopup="true"
                 >
-                  <img
+                 <img
                     className="h-8 w-8 rounded-full"
-                    src={user.pic}
-                    alt="Your Profile"
+                    src={
+                      (user && user.pic) ||
+                      (admin && '/image/admin.png') || // Use local image for admin
+                      ""
+                    }
+                    alt="Profile"
                   />
                 </button>
               </div>
@@ -89,18 +91,30 @@ export const Header = () => {
               {isOpen && (
                 <div className="origin-top-right absolute z-20 right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                   <div className="py-1">
-                    <Link
-                      to="/home/profile"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                    >
-                      Profile
-                    </Link>
-                    <Link
-                      to="/home/activity"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                    >
-                      My Activity
-                    </Link>
+                    {isUserLoggedIn && (
+                      <>
+                        <Link
+                          to="/home/profile"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        >
+                          Profile
+                        </Link>
+                        <Link
+                          to="/home/activity"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        >
+                          My Activity
+                        </Link>
+                      </>
+                    )}
+                    {isAdminLoggedIn && (
+                      <Link
+                        to="/admin/dashboard"
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      >
+                        Dashboard
+                      </Link>
+                    )}
                     <button
                       onClick={handleLogout}
                       className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"

@@ -12,8 +12,8 @@ import jakarta.persistence.Column;
 public class Flat {
     @Id
     @GeneratedValue
-    @Column(name = "property_id")
-    private Long propertyId;
+    @Column(name = "Flat_id")
+    private Long flatId;
 
 	@Column(name = "apartment_name")
     private String apartmentName;
@@ -81,14 +81,7 @@ public class Flat {
 
 	
 	
-    public Long getPropertyId() {
-		return propertyId;
-	}
-
-
-	public void setPropertyId(Long propertyId) {
-		this.propertyId = propertyId;
-	}
+    
 
 
 	public String getApartmentName() {
@@ -249,6 +242,18 @@ public class Flat {
 		public void setAgeOfConstruction(String ageOfConstruction) {
 			this.ageOfConstruction = ageOfConstruction;
 		}
+
+		public Long getFlatId() {
+			return flatId;
+		}
+
+
+		public void setFlatId(Long flatId) {
+			this.flatId = flatId;
+		}
+
+
+
 
 
     

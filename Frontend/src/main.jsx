@@ -11,6 +11,9 @@ import Profile from "./features/user/Profile";
 import Activity from "./features/user/Activity";
 import FlatForm from "./components/FlatForm"
 import PricingPlans from "./features/subscription/Sub";
+import AdminLogin from "./features/admin/AdminLogin";
+import AdminProtected from "./route/AdminProtected";
+import Dashboard from "./features/admin/Dashboard";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +23,7 @@ const router = createBrowserRouter([
       { path: "/", element: <Home /> },
       { path: "/signup", element: <SignUp /> },
       { path: "/login", element: <SignIn /> },
+      { path: "/admin-login", element: <AdminLogin/>},
       { path: "/subscription", element: <PricingPlans/>},
       {
         path: "/home",
@@ -30,6 +34,12 @@ const router = createBrowserRouter([
           { path: "/home/activity/flatAD", element: <FlatForm/> },
         ],
       },
+      {
+        path: '/admin', 
+        element: <AdminProtected/> , 
+        children:[
+          {path:'/admin/dashboard', element: <Dashboard/>}
+        ]}
     ],
   },
 ]);

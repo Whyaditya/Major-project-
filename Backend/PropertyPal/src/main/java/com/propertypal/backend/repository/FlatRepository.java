@@ -9,4 +9,5 @@ import com.propertypal.backend.model.Flat;
 @Repository
 public interface FlatRepository extends JpaRepository<Flat, Long> {
 	Page<Flat> findByTypeAndCity(String type, String city, Pageable pageable);
+	Flat findByFlatId(Long flatId);
 }

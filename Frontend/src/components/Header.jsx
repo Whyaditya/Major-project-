@@ -1,13 +1,20 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { FaSearch } from "react-icons/fa";
+import { FaMapMarkerAlt, FaSearch } from "react-icons/fa";
+import { FaChevronDown } from "react-icons/fa";
 
 export const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [cityDropdownOpen, setCityDropdownOpen] = useState(false);
+  const [selectedCity, setSelectedCity] = useState('');
   const navigate = useNavigate();
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
+  };
+
+  const toggleCityDropdown = () => {
+    setCityDropdownOpen(!cityDropdownOpen);
   };
 
   const handleLogout = () => {
@@ -16,6 +23,18 @@ export const Header = () => {
     navigate("/login");
   };
 
+  const handleCitySelect = (city) => {
+    setSelectedCity(city);
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user) {
+      user.city = city;
+      localStorage.setItem("user", JSON.stringify(user));
+    }
+    setCityDropdownOpen(false);
+    window.location.reload(); // Force reload the page
+  };
+
+  
   // Check if user or admin is logged in
   const isUserLoggedIn = localStorage.getItem("user");
   const isAdminLoggedIn = localStorage.getItem("admin");
@@ -32,23 +51,50 @@ export const Header = () => {
           </h1>
         </Link>
 
+        {/* City Dropdown */}
+        <div className="relative">
+            <button
+              onClick={toggleCityDropdown}
+              className="flex items-center bg-white text-gray-700 py-4 px-5 rounded-full focus:outline-none"
+            >
+              <FaMapMarkerAlt className="mr-2" />
+              {selectedCity || (user && user.city) || "Select City"}
+              <FaChevronDown className="ml-2" />
+            </button>
+            {cityDropdownOpen && (
+              <div className="origin-top-right absolute z-20 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+                <div className="py-1">
+                  {["kolkata", "patna", "mumbai", "delhi"].map((city) => (
+                    <div
+                      key={city}
+                      onClick={() => handleCitySelect(city)}
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
+                    >
+                      {city}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+
         {/* Search form */}
-        <form className="bg-slate-100 p-3 rounded-lg flex items-center ">
+        {/* <form className="bg-slate-100 p-3 rounded-lg flex items-center ">
           <input
             type="text"
             placeholder="search..."
             className="bg-transparent border-none focus:outline-none  w-24 sm:w-64"
           />
           <FaSearch />
-        </form>
+        </form> */}
 
-        <ul className="flex gap-4">
-          <Link to="/" className="text-decoration-none">
+        <ul className="flex gap-4 items-center">
+          <Link to="/flats/sell" className="text-decoration-none">
             <li className="hidden sm:inline text-slate-700 hover:underline cursor-pointer">
               Buy
             </li>
           </Link>
-          <Link to="/" className="text-decoration-none">
+          <Link to="/flats/rent" className="text-decoration-none">
             <li className="hidden sm:inline text-slate-700 hover:underline cursor-pointer">
               Rent
             </li>
@@ -65,9 +111,11 @@ export const Header = () => {
             </li>
           </Link>
 
-          {/* Dropdown menu */}
+          
+
+          {/* User/Admin Dropdown menu */}
           {isUserLoggedIn || isAdminLoggedIn ? (
-            <div className="dropdown">
+            <div className="relative">
               <div>
                 <button
                   onClick={toggleDropdown}
@@ -76,7 +124,7 @@ export const Header = () => {
                   aria-label="User menu"
                   aria-haspopup="true"
                 >
-                 <img
+                  <img
                     className="h-8 w-8 rounded-full"
                     src={
                       (user && user.pic) ||
@@ -89,7 +137,7 @@ export const Header = () => {
               </div>
               {/* Dropdown menu */}
               {isOpen && (
-                <div className="origin-top-right absolute z-20 right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                <div className="origin-top-right absolute z-20 right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
                   <div className="py-1">
                     {isUserLoggedIn && (
                       <>

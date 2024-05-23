@@ -29,19 +29,27 @@ const FlatManagement = () => {
   return (
     <div>
       <h1>Flat Management</h1>
-      <table className="table table-dark table-striped">
+      <table className="table table-striped">
         <thead>
-          <tr>
+          <tr class="table-dark">
             <th>Flat ID</th>
+            <th>Flat Name</th>
+            <th>Location</th>
+            <th>Price</th>
+            <th>Posted By</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           {flats.map(flat => (
-            <tr key={flat.id}>
-              <td>{flat.id}</td>
+            <tr key={flat.flatId}>
+              <td class="table-success">{flat.flatId}</td>
+              <td class="table-success">{flat.apartmentName}</td>
+              <td class="table-success">{flat.city}</td>
+              <td class="table-success">{flat.price}</td>
+              <td class="table-success">{flat.postedBy}</td>
               <td>
-                <button className="btn btn-danger" onClick={() => deleteFlat(flat.id)}>
+                <button className="btn btn-danger" onClick={() => deleteFlat(flat.flatId)}>
                   Delete
                 </button>
               </td>

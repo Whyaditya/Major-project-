@@ -14,6 +14,8 @@ import PricingPlans from "./features/subscription/Sub";
 import AdminLogin from "./features/admin/AdminLogin";
 import AdminProtected from "./route/AdminProtected";
 import Dashboard from "./features/admin/Dashboard";
+import Detail from "./pages/Detail";
+import FlatList from "./features/flat/FlatList";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +27,9 @@ const router = createBrowserRouter([
       { path: "/login", element: <SignIn /> },
       { path: "/admin-login", element: <AdminLogin/>},
       { path: "/subscription", element: <PricingPlans/>},
+      { path: "/Flat/sell/:id", element: <Detail/>,},
+      { path: "/Flat/rent/:id", element: <Detail/>,},
+      { path: "/flats/:type", element: <FlatList/>},
       {
         path: "/home",
         element: <Protected />,

@@ -11,5 +11,4 @@ public interface FlatService {
     Page<Flat> getFlatsByTypeAndCity(String type, String city, int page, int size);
     List<Flat> getAllFlat();
     void deleteFlatByFlatId(Long flatId);
-    Flat getFlatById(Long id);
 }

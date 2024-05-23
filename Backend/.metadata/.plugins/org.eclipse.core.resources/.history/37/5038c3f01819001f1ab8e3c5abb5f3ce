@@ -20,25 +20,19 @@ public class FlatController {
         return ResponseEntity.ok(savedFlat);
     }
 
-    @GetMapping("/rent/{city}/{pageno}/{size}")
+    @GetMapping("/rent")
     public ResponseEntity<Page<Flat>> getRentFlats(
-            @PathVariable String city,
-            @PathVariable int pageno,
-            @PathVariable int size) {
-        return ResponseEntity.ok(flatService.getFlatsByTypeAndCity("rent", city, pageno, size));
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "10") int size,
+            @RequestParam(value = "city") String city) {
+        return ResponseEntity.ok(flatService.getFlatsByTypeAndCity("rent", city, page, size));
     }
 
-    @GetMapping("/sell/{city}/{pageno}/{size}")
+    @GetMapping("/sell")
     public ResponseEntity<Page<Flat>> getSellFlats(
-            @PathVariable String city,
-            @PathVariable int pageno,
-            @PathVariable int size) {
-        return ResponseEntity.ok(flatService.getFlatsByTypeAndCity("sell", city, pageno, size));
-    }
-    
-    @GetMapping("/{id}")
-    public ResponseEntity<Flat> getFlatById(@PathVariable Long id) {
-        Flat flat = flatService.getFlatById(id);
-        return ResponseEntity.ok(flat);
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "10") int size,
+            @RequestParam(value = "city") String city) {
+        return ResponseEntity.ok(flatService.getFlatsByTypeAndCity("sell", city, page, size));
     }
 }

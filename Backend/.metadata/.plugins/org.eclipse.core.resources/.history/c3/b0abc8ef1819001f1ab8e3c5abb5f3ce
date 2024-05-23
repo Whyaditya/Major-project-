@@ -41,11 +41,6 @@ public class FlatServiceImpl implements FlatService {
         }
     }
     
-    @Override
-    public Flat getFlatById(Long id) {
-        return flatRepository.findById(id).orElse(null);
-    }
-    
     
 }
 

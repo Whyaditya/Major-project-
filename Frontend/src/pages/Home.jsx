@@ -1,15 +1,19 @@
 import React from "react";
 import "./Home.css";
+import TrendingFlat from "../components/TrendingFlat";
 
 const Home = () => {
   return (
     <>
       {" "}
-      <div className="bg-dark-100">
+      <div >
         {/* Hero Section */}
         <div className="hero-image">
           <div className="welcome-text">Welcome To PropertyPal</div>
         </div>
+
+        <div class="b-example-divider" style={{height:'200px'}}></div>
+
 
         {/* Search Bar */}
         <div className="container  mx-auto mt-8 w-70 max-w-lg flex-nowrap justify-center search-card mb-8" >
@@ -17,7 +21,7 @@ const Home = () => {
             <h2 className="text-xl font-semibold mb-4">Search Filters</h2>
             <form className="flex flex-col space-y-4">
               <div className="flex flex-nowrap -mx-2">
-                <div className="w-full md:w-1/2 px-2 mb-4">
+                {/* <div className="w-full md:w-1/2 px-2 mb-4">
                   <label
                     className="block text-gray-700 text-sm font-bold mb-2"
                     htmlFor="budget"
@@ -31,22 +35,26 @@ const Home = () => {
                     className="w-full border border-gray-300 rounded-md px-4 py-2"
                     placeholder="Enter budget"
                   />
-                </div>
+                </div> */}
                 <div className="w-full md:w-1/2 px-2 mb-4">
-                  <label
-                    className="block text-gray-700 text-sm font-bold mb-2"
-                    htmlFor="location"
-                  >
-                    Location:
-                  </label>
-                  <input
-                    type="text"
-                    id="location"
-                    name="location"
-                    className="w-full border border-gray-300 rounded-md px-4 py-2"
-                    placeholder="Enter location"
-                  />
+                <label
+                for="location"
+                class="block text-gray-700 text-sm font-bold mb-2"
+              >
+                Location:
+              </label>
+              <select
+                id="city"
+                name="city"
+                class="border border-gray-300 rounded-md px-4 py-2 w-full focus:outline-none focus:border-blue-500"
+              >
+                <option value="">Select location</option>
+                <option value="kolkata">Kolkata</option>
+                <option value="patna">Patna</option>
+               
+              </select>
                 </div>
+
                 <div className="w-full md:w-1/2 px-2 mb-4">
                   <label
                     className="block text-gray-700 text-sm font-bold mb-2"
@@ -55,7 +63,7 @@ const Home = () => {
                     BHK:
                   </label>
                   <select
-                    id="bhk"
+                    id="flatSize"
                     name="bhk"
                     className="w-full border border-gray-300 rounded-md px-4 py-2"
                   >
@@ -63,7 +71,23 @@ const Home = () => {
                     <option value="2">2 BHK</option>
                     <option value="3">3 BHK</option>
                     <option value="4">4 BHK</option>
-                    <option value="5">5+ BHK</option>
+                  </select>
+                </div>
+                <div className="w-full md:w-1/2 px-2 mb-4">
+                  <label
+                    className="block text-gray-700 text-sm font-bold mb-2"
+                    htmlFor="bhk"
+                  >
+                    Looking For ?
+                  </label>
+                  <select
+                    id="flatSize"
+                    name="bhk"
+                    className="w-full border border-gray-300 rounded-md px-4 py-2"
+                  >
+                    <option value="1">Buy</option>
+                    <option value="2">Rent</option>
+                    
                   </select>
                 </div>
                 <div className="w-full md:w-1/2 px-2 mb-4">
@@ -94,6 +118,15 @@ const Home = () => {
             </form>
           </div>
         </div>
+
+
+        <TrendingFlat/>
+
+
+
+
+
+
       </div>
     </>
   );

@@ -10,10 +10,12 @@ const TrendingFlat = () => {
   const [rentFlats, setRentFlats] = useState([]);
   const nav = useNavigate();
   const userData = localStorage.getItem("user");
-  const user = JSON.parse(userData);
+  const user = userData ? JSON.parse(userData) : null;
+  const selectedCity = localStorage.getItem("city") || 'kolkata';
+  const city = user ? user.city : selectedCity;
 
   useEffect(() => {
-    axios.get(`/api/flats/sell/${user.city||'kolkata'}/0/4`)
+    axios.get(`/api/flats/sell/${city}/0/4`)
       .then(response => {
         console.log("Sell flats API response:", response.data);
         setSellFlats(response.data.content);
@@ -22,7 +24,7 @@ const TrendingFlat = () => {
         console.error("Sell flats API error:", error);
       });
 
-    axios.get(`/api/flats/rent/${user.city}/0/4`)
+    axios.get(`/api/flats/rent/${city}/0/4`)
       .then(response => {
         console.log("Rent flats API response:", response.data);
         setRentFlats(response.data.content);
@@ -30,11 +32,12 @@ const TrendingFlat = () => {
       .catch(error => {
         console.error("Rent flats API error:", error);
       });
-  }, [userData]);
+  }, [city]);
 
   const handleCardClickSell = (id) => {
     nav(`/flat/sell/${id}`);
   };
+
   const handleCardClickRent = (id) => {
     nav(`/flat/rent/${id}`);
   };
@@ -46,7 +49,7 @@ const TrendingFlat = () => {
   return (
     <div className="trending-flats-container">
       <div className="flat-section">
-        <h2>Flats for Sale in {user.city||"kolkata"}</h2>
+        <h2>Flats for Sale in {city}</h2>
         <div className="flats-row">
           {sellFlats.length === 0 ? (
             <p>No flats available for sale</p>
@@ -57,7 +60,6 @@ const TrendingFlat = () => {
                 {index === sellFlats.length - 1 && (
                   <button className="show-more-btn" onClick={() => handleShowMore('sell')}>
                     <FaArrowAltCircleRight />
-
                   </button>
                 )}
               </div>
@@ -67,7 +69,7 @@ const TrendingFlat = () => {
       </div>
 
       <div className="flat-section">
-        <h2>Flats for Rent in {user.city||"kolkata"}</h2>
+        <h2>Flats for Rent in {city}</h2>
         <div className="flats-row">
           {rentFlats.length === 0 ? (
             <p>No flats available for rent</p>
@@ -77,8 +79,7 @@ const TrendingFlat = () => {
                 <Card flat={flat} onClick={() => handleCardClickRent(flat.flatId)} />
                 {index === rentFlats.length - 1 && (
                   <button className="show-more-btn" onClick={() => handleShowMore('rent')}>
-                   <FaArrowAltCircleRight />
-
+                    <FaArrowAltCircleRight />
                   </button>
                 )}
               </div>

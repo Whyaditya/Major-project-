@@ -12,14 +12,16 @@ const FlatList = () => {
   const [totalPages, setTotalPages] = useState(0);
   const nav = useNavigate();
   const userData = localStorage.getItem("user");
-  const user = JSON.parse(userData);
+  const user = userData ? JSON.parse(userData) : null;
+  const cityData = localStorage.getItem("city");
+  const city = cityData || 'kolkata'; // Use the city from localStorage or default to 'kolkata'
 
   useEffect(() => {
     fetchFlats(page);
-  }, [page,user.city,type]);
+  }, [page, city, type]);
 
   const fetchFlats = (pageNumber) => {
-    axios.get(`/api/flats/${type}/${user.city}/${pageNumber}/8`)
+    axios.get(`/api/flats/${type}/${city}/${pageNumber}/8`)
       .then(response => {
         setFlats(response.data.content);
         setTotalPages(response.data.totalPages);
@@ -47,7 +49,7 @@ const FlatList = () => {
 
   return (
     <div className="show-more-flats-container">
-      <h2>{`Flats for ${type.charAt(0).toUpperCase() + type.slice(1)} in ${user.city}`}</h2>
+      <h2>{`Flats for ${type.charAt(0).toUpperCase() + type.slice(1)} in ${city}`}</h2>
       <div className="flats-grid">
         {flats.map(flat => (
           <Card key={flat.flatId} flat={flat} onClick={() => handleCardClick(flat.flatId)} />

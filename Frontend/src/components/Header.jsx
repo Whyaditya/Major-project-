@@ -29,11 +29,13 @@ export const Header = () => {
     if (user) {
       user.city = city;
       localStorage.setItem("user", JSON.stringify(user));
+    } else {
+      localStorage.setItem("city", city);
     }
     setCityDropdownOpen(false);
     window.location.reload(); // Force reload the page
   };
-
+  
   
   // Check if user or admin is logged in
   const isUserLoggedIn = localStorage.getItem("user");
@@ -58,13 +60,13 @@ export const Header = () => {
               className="flex items-center bg-white text-gray-700 py-4 px-5 rounded-full focus:outline-none"
             >
               <FaMapMarkerAlt className="mr-2" />
-              {selectedCity || (user && user.city) || "Select City"}
+              {selectedCity || (user && user.city) || "Select City" || city.city}
               <FaChevronDown className="ml-2" />
             </button>
             {cityDropdownOpen && (
               <div className="origin-top-right absolute z-20 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
                 <div className="py-1">
-                  {["kolkata", "patna", "mumbai", "delhi"].map((city) => (
+                  {["kolkata", "patna",].map((city) => (
                     <div
                       key={city}
                       onClick={() => handleCitySelect(city)}

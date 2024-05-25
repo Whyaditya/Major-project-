@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import UserManagement from './UserManagement';
 import FlatManagement from './FlatManagement';
 import './Admin.css';
+import BungalowManagement from './BungalowManagement';
 
 function Dashboard() {
     const [activeTab, setActiveTab] = useState('home');
@@ -18,6 +19,9 @@ function Dashboard() {
               </li>
               <li className={activeTab === 'flats' ? 'active' : ''}>
                 <button onClick={() => setActiveTab('flats')}>Flats</button>
+              </li>
+              <li className={activeTab === 'bungalows' ? 'active' : ''}>
+                <button onClick={() => setActiveTab('bungalows')}>Bungalows</button>
               </li>
             </ul>
           </nav>
@@ -39,6 +43,7 @@ function Dashboard() {
             )}
             {activeTab === 'users' && <UserManagement />}
             {activeTab === 'flats' && <FlatManagement />}
+            {activeTab === 'bungalows' && <BungalowManagement/>}
           </div>
         </div>
       );

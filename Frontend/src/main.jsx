@@ -18,6 +18,7 @@ import Detail from "./pages/Detail";
 import FlatList from "./features/flat/FlatList";
 import PropertyList from "./features/property/PropertyList";
 import BungalowForm from "./components/BungalowForm";
+import AboutUs from "./pages/AboutUs";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,7 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       { path: "/", element: <Home /> },
+      { path: "/aboutus", element: <AboutUs/> },
       { path: "/signup", element: <SignUp /> },
       { path: "/login", element: <SignIn /> },
       { path: "/admin-login", element: <AdminLogin/>},

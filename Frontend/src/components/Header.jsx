@@ -107,7 +107,7 @@ export const Header = () => {
             </li>
           </Link>): ""}
         
-          <Link to="/about" className="text-decoration-none">
+          <Link to="/aboutus" className="text-decoration-none">
             <li className="hidden sm:inline text-slate-700 hover:underline cursor-pointer">
               About
             </li>

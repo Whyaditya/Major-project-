@@ -5,12 +5,12 @@ import { useParams } from 'react-router-dom';
 import { FaPhoneAlt, FaHeart } from 'react-icons/fa';
 
 const Detail = () => {
-  const { id } = useParams();
+  const { id,propertyType } = useParams();
   const [flat, setFlat] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
 
   useEffect(() => {
-    axios.get(`/api/flats/${id}`)
+    axios.get(`/api/${propertyType}s/${id}`)
       .then(response => {
         setFlat(response.data);
         setSelectedImage(response.data.photo1); // Set the initial selected image
@@ -52,12 +52,12 @@ const Detail = () => {
         </div>
       </div>
       <div className="bg-white rounded-lg shadow-md p-6 mt-8 mb-5">
-        <h1 className="text-4xl font-bold mb-5">{flat.apartmentName}</h1>
+        <h1 className="text-4xl font-bold mb-5">{flat.apartmentName || flat.bungalowName}</h1>
         <p className="text-red-600 text-2xl font-bold mb-4">Price: {flat.price}</p>
         <p className="text-gray-800 text-lg mb-4">Location: {flat.address}</p>
-        <p className="text-gray-800 text-lg mb-4">Type: {flat.type}</p>
-        <p className="text-gray-800 text-lg mb-4">Size: {flat.flatSize}</p>
-        <p className="text-gray-800 text-lg mb-4">Area: {flat.flatAreaSquare}</p>
+        <p className="text-gray-800 text-lg mb-4">Type: {flat.type }</p>
+        <p className="text-gray-800 text-lg mb-4">Size: {flat.flatSize || flat.bungalowSize}</p>
+        <p className="text-gray-800 text-lg mb-4">Area: {flat.flatAreaSquare || flat.bungalowAreaSquare}</p>
         <p className="text-gray-800 text-lg mb-4">Description: {flat.description}</p>
         <div className="flex justify-between items-center">
           <button className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md mr-4 flex items-center">

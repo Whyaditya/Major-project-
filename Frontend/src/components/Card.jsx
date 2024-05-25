@@ -1,15 +1,15 @@
 import React from 'react';
-import './Card.css'
+import './Card.css';
 
-const Card = ({ flat, onClick }) => {
+const Card = ({ property, onClick }) => {
   return (
-    <div className="b" onClick={() => onClick(flat.id)}>
-      <div className="im" style={{ backgroundImage: `url(${flat.photo1})` }}></div>
+    <div className="b" onClick={() => onClick(property.flatId || property.bungalowId)}>
+      <div className="im" style={{ backgroundImage: `url(${property.photo1})` }}></div>
       <div id="w">
-        <div className="s">{flat.type} flat</div>
-        <div id="e">{flat.price} | {flat.flatAreaSquare} sqft</div>
-        <div className="s">{flat.city}</div>
-        <div className="s">{flat.ageOfConstruction}</div>
+        <div className="s">{property.type} {property.flatId ? 'Flat' : 'Bungalow'}</div>
+        <div id="e">{property.price} | {property.flatAreaSquare} sqft</div>
+        <div className="s">{property.city}</div>
+        <div className="s">{property.ageOfConstruction}</div>
       </div>
     </div>
   );

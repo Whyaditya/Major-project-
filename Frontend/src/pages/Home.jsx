@@ -1,6 +1,7 @@
 import React from "react";
 import "./Home.css";
 import TrendingFlat from "../components/TrendingFlat";
+import TrendingProperty from "../features/property/TrendingProperty";
 
 const Home = () => {
   return (
@@ -120,7 +121,8 @@ const Home = () => {
         </div>
 
 
-        <TrendingFlat/>
+        <TrendingProperty propertyType="flat" />
+        <TrendingProperty propertyType="bungalow" />
 
 
 

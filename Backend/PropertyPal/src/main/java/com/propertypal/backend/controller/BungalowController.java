@@ -3,8 +3,11 @@ package com.propertypal.backend.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,29 +19,37 @@ import com.propertypal.backend.service.BungalowService;
 
 @RestController
 @CrossOrigin("http://localhost:5173")
-@RequestMapping("/api") 
+@RequestMapping("/api/bungalows") 
 public class BungalowController {
     
     @Autowired
     private BungalowService bungalowService;
     
-    @GetMapping("/search")
-    public List<Bungalow> searchBungalows(@RequestParam String location, @RequestParam String type){
-        return bungalowService.findBungalowsByLocationAndType(location, type);
+    @PostMapping("/add")
+    public ResponseEntity<Bungalow> addBungalow(@RequestBody Bungalow bungalow) {
+        Bungalow savedBungalow = bungalowService.saveBungalow(bungalow);
+        return ResponseEntity.ok(savedBungalow);
+    }
+
+    @GetMapping("/rent/{city}/{pageno}/{size}")
+    public ResponseEntity<Page<Bungalow>> getRentBungalows(
+            @PathVariable String city,
+            @PathVariable int pageno,
+            @PathVariable int size) {
+        return ResponseEntity.ok(bungalowService.getBungalowsByTypeAndCity("rent", city, pageno, size));
+    }
+
+    @GetMapping("/sell/{city}/{pageno}/{size}")
+    public ResponseEntity<Page<Bungalow>> getSellBungalows(
+            @PathVariable String city,
+            @PathVariable int pageno,
+            @PathVariable int size) {
+        return ResponseEntity.ok(bungalowService.getBungalowsByTypeAndCity("sell", city, pageno, size));
     }
     
-    @GetMapping("/bungalows/sell")
-    public List<Bungalow> getSellBungalows() {
-        return bungalowService.findBungalowsByTypeLimited("Sell");
-    }
-    
-    @GetMapping("/bungalows/rent")
-    public List<Bungalow> getRentBungalows() {
-        return bungalowService.findBungalowsByTypeLimited("Rent");
-    }
-    
-    @PostMapping("/register")
-    public Bungalow registerBungalow(@RequestBody Bungalow bungalow) {
-        return bungalowService.registerBungalow(bungalow);
+    @GetMapping("/{id}")
+    public ResponseEntity<Bungalow> getBungalowById(@PathVariable Long id) {
+    	Bungalow bungalow = bungalowService.getBungalowById(id);
+        return ResponseEntity.ok(bungalow);
     }
 }

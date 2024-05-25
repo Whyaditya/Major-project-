@@ -16,6 +16,8 @@ import AdminProtected from "./route/AdminProtected";
 import Dashboard from "./features/admin/Dashboard";
 import Detail from "./pages/Detail";
 import FlatList from "./features/flat/FlatList";
+import PropertyList from "./features/property/PropertyList";
+import BungalowForm from "./components/BungalowForm";
 
 const router = createBrowserRouter([
   {
@@ -27,9 +29,9 @@ const router = createBrowserRouter([
       { path: "/login", element: <SignIn /> },
       { path: "/admin-login", element: <AdminLogin/>},
       { path: "/subscription", element: <PricingPlans/>},
-      { path: "/Flat/sell/:id", element: <Detail/>,},
-      { path: "/Flat/rent/:id", element: <Detail/>,},
-      { path: "/flats/:type", element: <FlatList/>},
+      { path: "/:propertyType/sell/:id", element: <Detail/>,},
+      { path: "/:propertyType/rent/:id", element: <Detail/>,},
+      { path: "/:propertyType/:type", element: <PropertyList/>},
       {
         path: "/home",
         element: <Protected />,
@@ -37,6 +39,7 @@ const router = createBrowserRouter([
           { path: "/home/profile", element: <Profile /> },
           { path: "/home/activity", element: <Activity /> },
           { path: "/home/activity/flatAD", element: <FlatForm/> },
+          { path: "/home/activity/bungalowAD", element: <BungalowForm/> },
         ],
       },
       {

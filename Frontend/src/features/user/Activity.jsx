@@ -74,7 +74,7 @@ const Activity = () => {
           <div
             className="card mb-3 mr-5"
             style={{ width: '100%', height: '100%', borderRadius: '20px', cursor: 'pointer', overflow:'hidden' }}
-            onClick={() => navigate('/home/activity/banglowAD')}
+            onClick={() => navigate('/home/activity/bungalowAD')}
           >
             <div className="row g-0" style={{ height: '100%' }}>
               <div className="col-md-6">

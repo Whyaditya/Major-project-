@@ -45,5 +45,10 @@ public class UserController {
         return userService.updateUserPic(email, newPicUrl);
     }
     
+    @GetMapping("/{id}")
+    public Map<String, String> getUserById(@PathVariable Long id) {
+        return userService.getUserById(id);
+    }
+    
     
 }

@@ -1,6 +1,7 @@
 package com.propertypal.backend.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.propertypal.backend.model.User;
 
@@ -11,4 +12,5 @@ public interface UserService {
 	User updateUserPic(String email, String newPicUrl);
 	List<User> getAllUsers();
     void deleteUserByEmail(String email);
+    Map<String, String> getUserById(Long id);
 }

@@ -10,7 +10,10 @@ const Home = () => {
       <div >
         {/* Hero Section */}
         <div className="hero-image">
-          <div className="welcome-text">Welcome To PropertyPal</div>
+          <div className="welcome-text">
+          <span> Welcome To </span>  
+          <span className="text-danger">PropertyPal</span> 
+          </div>
         </div>
 
         <div class="b-example-divider" style={{height:'200px'}}></div>

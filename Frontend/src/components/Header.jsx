@@ -91,16 +91,7 @@ export const Header = () => {
         </form> */}
 
         <ul className="flex gap-4 items-center">
-          <Link to="/flats/sell" className="text-decoration-none">
-            <li className="hidden sm:inline text-slate-700 hover:underline cursor-pointer">
-              Buy
-            </li>
-          </Link>
-          <Link to="/flats/rent" className="text-decoration-none">
-            <li className="hidden sm:inline text-slate-700 hover:underline cursor-pointer">
-              Rent
-            </li>
-          </Link>
+          
           {!isAdminLoggedIn ?  ( <Link to="/subscription" className="text-decoration-none">
             <li className="hidden sm:inline text-slate-700 hover:underline cursor-pointer">
               Plans
@@ -109,7 +100,7 @@ export const Header = () => {
         
           <Link to="/aboutus" className="text-decoration-none">
             <li className="hidden sm:inline text-slate-700 hover:underline cursor-pointer">
-              About
+              About us
             </li>
           </Link>
 

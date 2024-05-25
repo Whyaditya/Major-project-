@@ -1,7 +1,9 @@
 package com.propertypal.backend.service;
 
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -92,6 +94,18 @@ public class UserServiceImpl implements UserService {
         }
     }
     
+    @Override
+    public Map<String, String> getUserById(Long id) {
+        User user = userRepository.findById(id).orElse(null);
+        if (user != null) {
+            Map<String, String> userDetails = new HashMap<>();
+            userDetails.put("name", user.getName());
+            userDetails.put("email", user.getEmail());
+            userDetails.put("phone", String.valueOf(user.getPhone()));
+            return userDetails;
+        }
+        return null; 
+    }
     
     
 }

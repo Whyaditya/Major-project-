@@ -1,13 +1,15 @@
-// src/components/FlatDetail.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { FaPhoneAlt, FaHeart } from 'react-icons/fa';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Detail = () => {
-  const { id,propertyType } = useParams();
+  const { id, propertyType } = useParams();
   const [flat, setFlat] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [userInfo, setUserInfo] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     axios.get(`/api/${propertyType}s/${id}`)
@@ -16,12 +18,25 @@ const Detail = () => {
         setSelectedImage(response.data.photo1); // Set the initial selected image
       })
       .catch(error => console.error(error));
-  }, [id]);
+  }, [id, propertyType]);
 
   if (!flat) return <div>Loading...</div>;
 
   const handleThumbnailClick = (image) => {
     setSelectedImage(image);
+  };
+
+  const handleContactAgentClick = () => {
+    axios.get(`/api/users/${flat.postedBy}`)
+      .then(response => {
+        setUserInfo(response.data);
+        setShowModal(true);
+      })
+      .catch(error => console.error(error));
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
   };
 
   return (
@@ -60,7 +75,7 @@ const Detail = () => {
         <p className="text-gray-800 text-lg mb-4">Area: {flat.flatAreaSquare || flat.bungalowAreaSquare}</p>
         <p className="text-gray-800 text-lg mb-4">Description: {flat.description}</p>
         <div className="flex justify-between items-center">
-          <button className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md mr-4 flex items-center">
+          <button onClick={handleContactAgentClick} className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md mr-4 flex items-center">
             <FaPhoneAlt className="mr-2" /> Contact Agent
           </button>
           <button className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md flex items-center">
@@ -68,6 +83,30 @@ const Detail = () => {
           </button>
         </div>
       </div>
+
+      {/* Bootstrap Modal */}
+      {userInfo && (
+        <div className={`modal ${showModal ? 'd-block' : 'd-none'}`} tabIndex="-1" role="dialog" onClick={handleCloseModal}>
+          <div className="modal-dialog" role="document" onClick={e => e.stopPropagation()}>
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title">Agent Information</h5>
+                <button type="button" className="close" aria-label="Close" onClick={handleCloseModal}>
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div className="modal-body">
+                <p><strong>Name:</strong> {userInfo.name}</p>
+                <p><strong>Email:</strong> {userInfo.email}</p>
+                <p><strong>Phone:</strong> {userInfo.phone}</p>
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-secondary" onClick={handleCloseModal}>Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -1,0 +1,37 @@
+package com.propertypal.backend.controller;
+
+import com.propertypal.backend.model.UserInterest;
+import com.propertypal.backend.service.UserInterestService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/user-interests")
+public class UserInterestController {
+
+    @Autowired
+    private UserInterestService userInterestService;
+
+    @PostMapping("/add")
+    public ResponseEntity<UserInterest> addInterest(@RequestParam Long userId, @RequestParam(required = false) Long flatId, @RequestParam(required = false) Long bungalowId) {
+        UserInterest userInterest = userInterestService.addInterest(userId, flatId, bungalowId);
+        return ResponseEntity.ok(userInterest);
+    }
+
+    @GetMapping("/{userId}")
+    public ResponseEntity<List<UserInterest>> getUserInterests(@PathVariable Long userId) {
+        List<UserInterest> userInterests = userInterestService.getUserInterests(userId);
+        return ResponseEntity.ok(userInterests);
+    }
+
+    @DeleteMapping("/delete/{interestId}")
+    public ResponseEntity<Void> deleteInterest(@PathVariable Long interestId) {
+        userInterestService.deleteInterest(interestId);
+        return ResponseEntity.noContent().build();
+    }
+
+    
+}

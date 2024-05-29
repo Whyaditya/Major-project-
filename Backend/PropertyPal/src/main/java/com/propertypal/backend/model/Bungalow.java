@@ -11,7 +11,7 @@ import jakarta.persistence.Table;
 public class Bungalow {
 	@Id
     @GeneratedValue
-    @Column(name = "property_id")
+    @Column(name = "Bungalow_id")
     private Long bungalowId;
 
 	@Column(name = "bungalow_name")

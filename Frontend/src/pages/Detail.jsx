@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import { FaPhoneAlt, FaHeart } from 'react-icons/fa';
+import { FaPhoneAlt, FaHeart, FaCheck } from 'react-icons/fa';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Detail = () => {
@@ -10,15 +10,35 @@ const Detail = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [userInfo, setUserInfo] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [isInWishlist, setIsInWishlist] = useState(false);
+  const [isInWishlistId, setWishlistId] = useState(false);
+  const userId = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).id : null;
 
   useEffect(() => {
+    if (!userId) {
+      console.error("User ID not found in local storage");
+      return;
+    }
+
     axios.get(`/api/${propertyType}s/${id}`)
       .then(response => {
         setFlat(response.data);
         setSelectedImage(response.data.photo1); // Set the initial selected image
       })
       .catch(error => console.error(error));
-  }, [id, propertyType]);
+
+    // Check if the property is in the user's wishlist
+    axios.get(`http://localhost:8080/api/user-interests/find/${userId}?${propertyType === 'flat' ? 'flatId=' + id : 'bungalowId=' + id}`)
+      .then(response => {
+        if (response.data) {
+          setIsInWishlist(true);
+          setWishlistId(response.data);
+        } else {
+          setIsInWishlist(false);
+        }
+      })
+      .catch(error => console.error(error));
+  }, [id, propertyType, userId]);
 
   if (!flat) return <div>Loading...</div>;
 
@@ -37,6 +57,23 @@ const Detail = () => {
 
   const handleCloseModal = () => {
     setShowModal(false);
+  };
+
+  const toggleWishlist = () => {
+    if (!userId) {
+      console.error("User ID not found in local storage");
+      return;
+    }
+
+    if (isInWishlist) {
+      axios.delete(`http://localhost:8080/api/user-interests/delete/${isInWishlistId}`)
+        .then(() => setIsInWishlist(false))
+        .catch(error => console.error(error));
+    } else {
+      axios.post(`http://localhost:8080/api/user-interests/add?userId=${userId}&flatId=${propertyType === 'flat' ? id : ''}&bungalowId=${propertyType === 'bungalow' ? id : ''}`)
+  .then(() => setIsInWishlist(true))
+  .catch(error => console.error(error));
+    }
   };
 
   return (
@@ -70,7 +107,7 @@ const Detail = () => {
         <h1 className="text-4xl font-bold mb-5">{flat.apartmentName || flat.bungalowName}</h1>
         <p className="text-red-600 text-2xl font-bold mb-4">Price: {flat.price}</p>
         <p className="text-gray-800 text-lg mb-4">Location: {flat.address}</p>
-        <p className="text-gray-800 text-lg mb-4">Type: {flat.type }</p>
+        <p className="text-gray-800 text-lg mb-4">Type: {flat.type}</p>
         <p className="text-gray-800 text-lg mb-4">Size: {flat.flatSize || flat.bungalowSize}</p>
         <p className="text-gray-800 text-lg mb-4">Area: {flat.flatAreaSquare || flat.bungalowAreaSquare}</p>
         <p className="text-gray-800 text-lg mb-4">Description: {flat.description}</p>
@@ -78,8 +115,8 @@ const Detail = () => {
           <button onClick={handleContactAgentClick} className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md mr-4 flex items-center">
             <FaPhoneAlt className="mr-2" /> Contact Agent
           </button>
-          <button className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md flex items-center">
-            <FaHeart className="mr-2" /> Wishlist
+          <button onClick={toggleWishlist} className={`px-4 py-2 rounded-md flex items-center ${isInWishlist ? 'bg-red-500 hover:bg-red-600' : 'bg-blue-500 hover:bg-blue-600'}`}>
+            {isInWishlist ? <FaCheck className="mr-2" /> : <FaHeart className="mr-2" />} Wishlist
           </button>
         </div>
       </div>

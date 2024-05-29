@@ -1,0 +1,29 @@
+package com.propertypal.backend.model;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+
+@Entity
+public class UserInterest {
+    
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "flat_id", nullable = true)
+    private Flat flat;
+
+    @ManyToOne
+    @JoinColumn(name = "property_id", nullable = true)
+    private Bungalow bungalow;
+
+    // Getters and setters
+}

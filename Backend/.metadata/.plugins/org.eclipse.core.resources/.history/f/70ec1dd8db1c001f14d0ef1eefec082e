@@ -1,0 +1,15 @@
+package com.propertypal.backend.repository;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.propertypal.backend.model.UserInterest;
+
+@Repository
+public interface UserInterestRepository extends JpaRepository<UserInterest, Long> {
+    List<UserInterest> findByUserId(Long userId);
+    boolean existsByUserIdAndFlatId(Long userId, Long flatId);
+    boolean existsByUserIdAndBungalowId(Long userId, Long bungalowId);
+}

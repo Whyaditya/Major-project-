@@ -3,6 +3,8 @@ import UserManagement from './UserManagement';
 import FlatManagement from './FlatManagement';
 import './Admin.css';
 import BungalowManagement from './BungalowManagement';
+import PrimeFlat from './PrimeFlat';
+import PrimeBungalow from './PrimeBungalow';
 
 function Dashboard() {
     const [activeTab, setActiveTab] = useState('home');
@@ -22,6 +24,12 @@ function Dashboard() {
               </li>
               <li className={activeTab === 'bungalows' ? 'active' : ''}>
                 <button onClick={() => setActiveTab('bungalows')}>Bungalows</button>
+              </li>
+              <li className={activeTab === 'prime-flat' ? 'active' : ''}>
+                <button onClick={() => setActiveTab('prime-flats')}>prime-flat</button>
+              </li>
+              <li className={activeTab === 'prime-bungalow' ? 'active' : ''}>
+                <button onClick={() => setActiveTab('prime-bungalows')}>prime-bungalow</button>
               </li>
             </ul>
           </nav>
@@ -44,6 +52,8 @@ function Dashboard() {
             {activeTab === 'users' && <UserManagement />}
             {activeTab === 'flats' && <FlatManagement />}
             {activeTab === 'bungalows' && <BungalowManagement/>}
+            {activeTab === 'prime-flats' && <PrimeFlat/>}
+            {activeTab === 'prime-bungalows' && <PrimeBungalow/>}
           </div>
         </div>
       );

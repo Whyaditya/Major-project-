@@ -13,6 +13,7 @@ import com.propertypal.backend.model.Bungalow;
 
 public interface BungalowRepository extends JpaRepository<Bungalow, Long>{
 	Page<Bungalow> findByTypeAndCity(String type, String city, Pageable pageable);
+	Page<Bungalow> findByTypeAndCityAndBungalowSize(String type, String city, String bungalowSize, Pageable pageable);
 	Bungalow findByBungalowId(Long bungalowId);
 	List<Bungalow> findAllByBungalowIdIn(List<Long> bungalowIds);
 

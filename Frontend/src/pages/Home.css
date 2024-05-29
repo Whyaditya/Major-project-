@@ -19,13 +19,15 @@
 
 .search-card {
   position: absolute;
-  bottom: 9%; /* Adjust the value to move the search bar slightly upward */
+  bottom: 15%; /* Adjust the value to move the search bar slightly upward */
   left: 50%;
   transform: translateX(-50%);
   width: 90%;
   z-index: 1;
+  
+  
 }
 
 .card{
-  border-radius: 30px;
+  border-radius: 10%;
 }

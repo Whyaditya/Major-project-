@@ -29,6 +29,12 @@ public class FlatServiceImpl implements FlatService {
     }
     
     @Override
+    public Page<Flat> getFlatsByTypeCityAndSize(String type, String city, String flatSize, int pageno, int size) {
+        Pageable pageable = PageRequest.of(pageno, size);
+        return flatRepository.findByTypeAndCityAndFlatSize(type, city, flatSize, pageable);
+    }
+    
+    @Override
     public List<Flat> getAllFlat() {
         return flatRepository.findAll();
     }
@@ -44,6 +50,12 @@ public class FlatServiceImpl implements FlatService {
     @Override
     public Flat getFlatById(Long id) {
         return flatRepository.findById(id).orElse(null);
+    }
+    
+    @Override
+    public Page<Flat> getPrimeFlats(int pageNo, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        return flatRepository.findByPrime("true", pageable);
     }
     
     

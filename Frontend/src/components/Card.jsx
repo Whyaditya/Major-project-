@@ -3,7 +3,7 @@ import './Card.css';
 
 const Card = ({ property, onClick }) => {
   return (
-    <div className="b" onClick={() => onClick(property.flatId || property.bungalowId)}>
+    <div className="card" onClick={() => onClick(property.flatId || property.bungalowId)}>
       <div className="im" style={{ backgroundImage: `url(${property.photo1})` }}></div>
       <div id="w">
         <div className="s">{property.type} {property.flatId ? 'Flat' : 'Bungalow'}</div>

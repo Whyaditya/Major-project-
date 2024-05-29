@@ -11,6 +11,8 @@ import com.propertypal.backend.model.Flat;
 @Repository
 public interface FlatRepository extends JpaRepository<Flat, Long> {
 	Page<Flat> findByTypeAndCity(String type, String city, Pageable pageable);
+	Page<Flat> findByTypeAndCityAndFlatSize(String type, String city, String flatSize, Pageable pageable);
 	Flat findByFlatId(Long flatId);
 	List<Flat> findAllByFlatIdIn(List<Long> flatIds);
+	Page<Flat> findByPrime(String prime, Pageable pageable);
 }

@@ -36,9 +36,34 @@ public class FlatController {
         return ResponseEntity.ok(flatService.getFlatsByTypeAndCity("sell", city, pageno, size));
     }
     
+    @GetMapping("/rent/{city}/{flatSize}/{pageno}/{size}")
+    public ResponseEntity<Page<Flat>> getRentFlatsBySize(
+            @PathVariable String city,
+            @PathVariable String flatSize,
+            @PathVariable int pageno,
+            @PathVariable int size) {
+        return ResponseEntity.ok(flatService.getFlatsByTypeCityAndSize("rent", city, flatSize, pageno, size));
+    }
+
+    @GetMapping("/sell/{city}/{flatSize}/{pageno}/{size}")
+    public ResponseEntity<Page<Flat>> getSellFlatsBySize(
+            @PathVariable String city,
+            @PathVariable String flatSize,
+            @PathVariable int pageno,
+            @PathVariable int size) {
+        return ResponseEntity.ok(flatService.getFlatsByTypeCityAndSize("sell", city, flatSize, pageno, size));
+    }
+    
     @GetMapping("/{id}")
     public ResponseEntity<Flat> getFlatById(@PathVariable Long id) {
         Flat flat = flatService.getFlatById(id);
         return ResponseEntity.ok(flat);
+    }
+    
+    @GetMapping("/prime/{pageno}/{size}")
+    public ResponseEntity<Page<Flat>> getPrimeFlats(
+            @PathVariable int pageno,
+            @PathVariable int size) {
+        return ResponseEntity.ok(flatService.getPrimeFlats(pageno, size));
     }
 }

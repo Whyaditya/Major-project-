@@ -20,6 +20,7 @@ import PropertyList from "./features/property/PropertyList";
 import BungalowForm from "./components/BungalowForm";
 import AboutUs from "./pages/AboutUs";
 import Payment from "./features/subscription/Payment";
+import SearchResult from "./pages/SearchResult";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,7 @@ const router = createBrowserRouter([
       { path: "/:propertyType/sell/:id", element: <Detail/>,},
       { path: "/:propertyType/rent/:id", element: <Detail/>,},
       { path: "/:propertyType/:type", element: <PropertyList/>},
+      { path: "/searchresult/:propertyType/:type/:city/:flatSize/:pageno/:size", element: <SearchResult/>},
       {
         path: "/home",
         element: <Protected />,
@@ -44,6 +46,10 @@ const router = createBrowserRouter([
           { path: "/home/activity/flatAD", element: <FlatForm/> },
           { path: "/home/activity/bungalowAD", element: <BungalowForm/> },
           { path: "/home/subscription-payment", element: <Payment/> },
+          { path: "/home/:propertyType/:id", element: <Detail/>},
+          { path: "/home/:propertyType/:type", element: <PropertyList/>},
+
+
         ],
       },
       {

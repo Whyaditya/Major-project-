@@ -47,6 +47,24 @@ public class BungalowController {
         return ResponseEntity.ok(bungalowService.getBungalowsByTypeAndCity("sell", city, pageno, size));
     }
     
+    @GetMapping("/rent/{city}/{bungalowSize}/{pageno}/{size}")
+    public ResponseEntity<Page<Bungalow>> getRentBungalowsBySize(
+            @PathVariable String city,
+            @PathVariable String bungalowSize,
+            @PathVariable int pageno,
+            @PathVariable int size) {
+        return ResponseEntity.ok(bungalowService.getBungalowsByTypeCityAndSize("rent", city, bungalowSize, pageno, size));
+    }
+
+    @GetMapping("/sell/{city}/{bungalowSize}/{pageno}/{size}")
+    public ResponseEntity<Page<Bungalow>> getSellBungalowsBySize(
+            @PathVariable String city,
+            @PathVariable String bungalowSize,
+            @PathVariable int pageno,
+            @PathVariable int size) {
+        return ResponseEntity.ok(bungalowService.getBungalowsByTypeCityAndSize("sell", city, bungalowSize, pageno, size));
+    }
+    
     @GetMapping("/{id}")
     public ResponseEntity<Bungalow> getBungalowById(@PathVariable Long id) {
     	Bungalow bungalow = bungalowService.getBungalowById(id);

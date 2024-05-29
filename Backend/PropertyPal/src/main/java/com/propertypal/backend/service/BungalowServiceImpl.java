@@ -28,6 +28,12 @@ public class BungalowServiceImpl implements BungalowService {
     }
     
     @Override
+    public Page<Bungalow> getBungalowsByTypeCityAndSize(String type, String city, String bungalowSize, int pageno, int size) {
+        Pageable pageable = PageRequest.of(pageno, size);
+        return bungalowRepository.findByTypeAndCityAndBungalowSize(type, city, bungalowSize, pageable);
+    }
+    
+    @Override
     public List<Bungalow> getAllBungalow() {
         return bungalowRepository.findAll();
     }

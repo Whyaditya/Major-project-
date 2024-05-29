@@ -42,7 +42,7 @@ const PricingPlans = () => {
                 <li>Priority email support</li>
                 <li>Help center access</li>
               </ul>
-              <button type="button" className="w-100 btn btn-lg btn-primary">Get started</button>
+              <Link to="/home/subscription-payment" type="button" className="w-100 btn btn-lg btn-primary">Get started</Link>
             </div>
           </div>
         </div>

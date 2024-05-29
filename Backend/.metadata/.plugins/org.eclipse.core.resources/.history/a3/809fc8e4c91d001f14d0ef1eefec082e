@@ -1,0 +1,5 @@
+package com.propertypal.backend.controller;
+
+public class PrimeController {
+
+}

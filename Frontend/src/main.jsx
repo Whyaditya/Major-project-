@@ -19,6 +19,7 @@ import FlatList from "./features/flat/FlatList";
 import PropertyList from "./features/property/PropertyList";
 import BungalowForm from "./components/BungalowForm";
 import AboutUs from "./pages/AboutUs";
+import Payment from "./features/subscription/Payment";
 
 const router = createBrowserRouter([
   {
@@ -42,6 +43,7 @@ const router = createBrowserRouter([
           { path: "/home/activity", element: <Activity /> },
           { path: "/home/activity/flatAD", element: <FlatForm/> },
           { path: "/home/activity/bungalowAD", element: <BungalowForm/> },
+          { path: "/home/subscription-payment", element: <Payment/> },
         ],
       },
       {

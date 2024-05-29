@@ -13,4 +13,5 @@ public interface UserService {
 	List<User> getAllUsers();
     void deleteUserByEmail(String email);
     Map<String, String> getUserById(Long id);
+    User changeUserSubscription(Long userId);
 }

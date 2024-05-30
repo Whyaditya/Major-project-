@@ -19,7 +19,7 @@ const AboutUs = () => {
             <div id="r">
                 <div>
                     <div className="r">
-                        <div className="new" id="p1" style={{ backgroundImage: `url(/image/aditya_ayush.jpg)` }}></div>
+                        <div className="new" id="p1" style={{ backgroundImage: `url(/image/adi.jpg)` }}></div>
                         <div className="d">
                             <div className="name">Aditya Ayush</div>
                             <div className="des">Founder & Project Manager & Developer<br />22601221195</div>

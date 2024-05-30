@@ -44,7 +44,7 @@ export const Header = () => {
   const admin = isAdminLoggedIn && JSON.parse(isAdminLoggedIn);
 
   return (
-    <header className="bg-200 shadow-md" style={{ backgroundColor: '#AD88C6' }}>
+    <header className="bg-200 shadow-md" style={{ backgroundColor: '#FFBF00' }}>
       <div className="flex justify-between items-center max-w-6xl mx-auto p-3">
         <Link to="/" className="text-decoration-none">
           <h1 className="font-bold text-sm sm:text-xl flex flex-wrap ">
